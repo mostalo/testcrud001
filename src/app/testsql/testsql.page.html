@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>testsql</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-list-header>
+          Produtos recentes adicionados
+        </ion-list-header>
+        <ion-item *ngFor="let p of products">
+            <ion-label>
+              <h2>{{p.id}}</h2>
+              <h3>{{p.name}}</h3>
+              <p>R$ {{p.price}}</p>
+            </ion-label>
+            <ion-button (click)="editarProduto(p.id)" color="success" size="small">
+              Edit
+            </ion-button>
+            <ion-button (click)="excluirProduto(p.id)" color="danger" size="small">
+              Delete
+            </ion-button>
+          </ion-item>
+
+        </ion-list>
+
+
+</ion-content>
