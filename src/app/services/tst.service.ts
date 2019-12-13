@@ -2,24 +2,25 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { Product } from '../model/product';
+import { Customer } from '../model/customer';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'enctype': 'multipart/formdata',
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  })
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class TestsqlService {
-  base_path = 'http://localhost/ionic-api/api/products/';
+export class TstService {
 
-  constructor(private http: HttpClient) { }
+  server = "http://localhost/testapi/"
 
-    // Http Options
-    httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    }
+  constructor( public http: HttpClient) { }
 
-    // Handle API errors
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Ocorreu um erro no cliente ou na rede.
@@ -36,7 +37,19 @@ export class TestsqlService {
       'Something bad happened; please try again later.');
   };
 
-  public selectProducts(): Observable<Product> {
+postData(body, file): Observable<Customer> {
+  return this.http.post<Customer>(this.server + file, JSON.stringify(body), 
+  httpOptions).pipe(retry(2),catchError(this.handleError))
+}
+
+/*
+  postData(body, file) {
+    return this.http.post(this.server + file, JSON.stringify(body), 
+    httpOptions);
+}
+
+/*
+public selectProducts(): Observable<Product> {
     return this.http
       .get<Product>(this.base_path)
       .pipe(
@@ -44,14 +57,7 @@ export class TestsqlService {
         catchError(this.handleError)
       )
   }
+*/
 
-  public deleteProduct(id: number) {
-    return this.http
-      .delete<Product>(this.base_path + '?id=' + id, this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
 
 }

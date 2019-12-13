@@ -25,6 +25,11 @@ export class AppComponent {
       title: 'Testsql',
       url: '/testsql',
       icon: 'list'
+    },
+    {
+      title: 'Tst2',
+      url: '/tst2',
+      icon: 'list'
     }
   ];
 

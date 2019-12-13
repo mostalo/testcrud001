@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'testsql',
     loadChildren: () => import('./testsql/testsql.module').then( m => m.TestsqlPageModule)
+  },  {
+    path: 'tst2',
+    loadChildren: () => import('./tst2/tst2.module').then( m => m.Tst2PageModule)
   }
+
 ];
 
 @NgModule({
