@@ -8,4 +8,11 @@
     }
     return array();
   }
+
+  function deleteProduto($id) {
+    if(fnDeleteViagem($id)) {
+      return true;
+    }
+    return false;
+  }
   ?>

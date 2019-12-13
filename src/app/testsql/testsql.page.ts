@@ -26,4 +26,15 @@ export class TestsqlPage implements OnInit {
     })
   }
 
+  excluirProduto(id: number) {
+    this.prdservice.deleteProduct(id).subscribe(
+      () => {
+        //console.log(id);
+        //this.router.navigateByUrl('tabs/lista');
+        this.Productlist();
+      },
+      errorDelete => console.log(errorDelete)
+    );
+  }
+
 }

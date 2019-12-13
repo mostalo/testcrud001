@@ -11,4 +11,15 @@
     }
     return $myproducts;
   }
+
+  function fnDeleteViagem($id){
+    $link = getConnection();
+    $query = "delete from products where id = $id";
+    mysqli_query($link, $query);
+    if(!mysqli_query($link, $query)) {
+      throw new \Exception("Error ao excluir", 1);
+      return false;
+    }
+    return true;
+  }
   ?>

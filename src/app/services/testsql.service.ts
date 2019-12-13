@@ -45,4 +45,13 @@ export class TestsqlService {
       )
   }
 
+  public deleteProduct(id: number) {
+    return this.http
+      .delete<Product>(this.base_path + '?id=' + id, this.httpOptions)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      )
+  }
+
 }
