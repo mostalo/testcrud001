@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import { TstService } from '../services/tst.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ModalController } from '@ionic/angular';
 import { Customer } from '../model/customer';
+import { AddtstPage } from '../addtst/addtst.page'
+import { async } from 'q';
 
 @Component({
   selector: 'app-tst2',
@@ -19,10 +21,10 @@ export class Tst2Page implements OnInit {
 
   anggota: any
   username: string
-
   constructor(private router: Router, 
     private postProvider: TstService,
     private toastCtrl: ToastController,
+    public modalcontroller: ModalController,
     ) { }
 
   ngOnInit() {
@@ -40,5 +42,29 @@ loadCostumer() {
       this.products = response;
     })
   }
+
+  deletecustomer(id) {
+    let body = {
+      action: 'delete',
+      id: id
+    };
+    this.postProvider.postData(body, 'api.php').subscribe(data => {
+      this.loadCostumer();
+    });
+  }
+
+  async testadd(){
+    const modal = await this.modalcontroller.create({
+     component: AddtstPage
+    });
+    return await modal.present();
+  }
+
+ /* async presentModal() {
+    const modal = await this.modalController.create({
+      component: ModalPage
+    });
+    return await modal.present();
+  }*/
 
 }

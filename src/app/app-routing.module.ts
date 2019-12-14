@@ -21,6 +21,10 @@ const routes: Routes = [
   },  {
     path: 'tst2',
     loadChildren: () => import('./tst2/tst2.module').then( m => m.Tst2PageModule)
+  },
+  {
+    path: 'addtst',
+    loadChildren: () => import('./addtst/addtst.module').then( m => m.AddtstPageModule)
   }
 
 ];

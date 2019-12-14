@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="testadd()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+    
   <ion-list>
     <ion-list-header>
       Produtos recentes adicionados
@@ -21,7 +27,7 @@
         <ion-button (click)="editarProduto(p.id)" color="success" size="small">
           Edit
         </ion-button>
-        <ion-button (click)="excluirProduto(p.id)" color="danger" size="small">
+        <ion-button (click)="deletecustomer(p.id)" color="danger" size="small">
           Delete
         </ion-button>
       </ion-item>
