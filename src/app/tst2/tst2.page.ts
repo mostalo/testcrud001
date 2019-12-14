@@ -57,7 +57,7 @@ loadCostumer() {
     const modal = await this.modalcontroller.create({
      component: AddtstPage
     });
-    return await modal.present();
+    modal.present();
   }
 
  /* async presentModal() {
