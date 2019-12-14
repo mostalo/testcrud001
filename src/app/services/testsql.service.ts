@@ -8,7 +8,7 @@ import { Product } from '../model/product';
   providedIn: 'root'
 })
 export class TestsqlService {
-  base_path = 'http://localhost/ionic-api/api/products/';
+  base_path = 'https://localhost/00crud/products/';
 
   constructor(private http: HttpClient) { }
 

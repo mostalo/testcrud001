@@ -37,27 +37,12 @@ export class TstService {
       'Something bad happened; please try again later.');
   };
 
-postData(body, file): Observable<Customer> {
+postData(body: any, file: any): Observable<Customer> {
   return this.http.post<Customer>(this.server + file, JSON.stringify(body), 
-  httpOptions).pipe(retry(2),catchError(this.handleError))
+  httpOptions)
+  .pipe(retry(2)
+  ,catchError(this.handleError))
 }
-
-/*
-  postData(body, file) {
-    return this.http.post(this.server + file, JSON.stringify(body), 
-    httpOptions);
-}
-
-/*
-public selectProducts(): Observable<Product> {
-    return this.http
-      .get<Product>(this.base_path)
-      .pipe(
-        retry(2),
-        catchError(this.handleError)
-      )
-  }
-*/
 
 
 }
