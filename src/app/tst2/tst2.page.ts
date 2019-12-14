@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router'
 import { TstService } from '../services/tst.service';
-//import { Storage } from '@ionic/stora';
 import { ToastController } from '@ionic/angular';
 import { Customer } from '../model/customer';
 
