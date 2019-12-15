@@ -8,8 +8,12 @@
 
   <form [formGroup]="validations_form"  (ngSubmit)="onSubmit(validations_form.value)">
     <ion-item>
-      <ion-label position="floating" color="primary">Username</ion-label>
-      <ion-input type="text" formControlName="username"></ion-input>
+      <ion-label position="floating" color="primary">customer name</ion-label>
+      <ion-input type="text" formControlName="name_customer"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating" color="primary">customer desc</ion-label>
+      <ion-input type="text" formControlName="desc_customer"></ion-input>
     </ion-item>
 
     <ion-button color="primary" class="submit-btn" expand="full" type="submit" >Submit data</ion-button>

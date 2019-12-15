@@ -15,7 +15,8 @@ export class AddtstPage implements OnInit {
 
   ngOnInit() {
     this.validations_form = this.formbuilder.group({
-      username: new FormControl()
+      name_customer: new FormControl(),
+      desc_customer: new FormControl()
     });
   }
 

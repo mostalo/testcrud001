@@ -60,11 +60,4 @@ loadCostumer() {
     modal.present();
   }
 
- /* async presentModal() {
-    const modal = await this.modalController.create({
-      component: ModalPage
-    });
-    return await modal.present();
-  }*/
-
 }
