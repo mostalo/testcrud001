@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'tst2',
     loadChildren: () => import('./tst2/tst2.module').then( m => m.Tst2PageModule)
+  },  {
+    path: 'editst',
+    loadChildren: () => import('./editst/editst.module').then( m => m.EditstPageModule)
   }
+
 
 ];
 

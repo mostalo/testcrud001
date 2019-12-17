@@ -13,12 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddtstPage implements OnInit {
 
   customerForm: FormGroup;
-  //name_customer: string = "";
-  //desc_customer: string = "";
- // id: number;
   products: Customer;
   productID: number;
-  editable: boolean = false;
 
   constructor(private navpaams: NavParams, private modalcontroller: ModalController, public formbuilder: FormBuilder, private tstservice: TstService, private route: ActivatedRoute, private router: Router) { }
 

@@ -1,4 +1,5 @@
 import {AddtstPageModule} from './addtst/addtst.module';
+import { EditstPageModule } from './editst/editst.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonicModule.forRoot(),
     AppRoutingModule,
     AddtstPageModule,
+    EditstPageModule,
     ReactiveFormsModule
   ],
   providers: [

@@ -3,7 +3,8 @@ import {Router} from '@angular/router'
 import { TstService } from '../services/tst.service';
 import { ToastController, ModalController } from '@ionic/angular';
 import { Customer } from '../model/customer';
-import { AddtstPage } from '../addtst/addtst.page'
+import { AddtstPage } from '../addtst/addtst.page';
+import { EditstPage } from '../editst/editst.page';
 import { async } from 'q';
 
 @Component({
@@ -68,7 +69,13 @@ loadCostumer() {
 
       return await modal.present();
   }
- 
- 
 
+  async editarProduto(id: number) {
+    const modal = await this.modalcontroller.create({
+      component: EditstPage,
+      componentProps: { value: id }
+    });
+    return await modal.present();
+  }
+  
 }
