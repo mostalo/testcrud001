@@ -9,14 +9,9 @@ include "lib/DB.php";
 
 $postjson = json_decode(file_get_contents('php://input'), true);
 
-
-//echo $postjson['action']." -- ";
-//echo $postjson['start']." -- ";
-//echo $postjson['limit'];
-
  if($postjson['action'] == 'getdata') {
     $data = array();
-    $query = mysqli_query($mysqli, "select * from costumers ORDER BY id DESC LIMIT $postjson[start], $postjson[limit]");
+    $query = mysqli_query($mysqli, "select * from costumers ORDER BY id ASC");
     while($row = mysqli_fetch_array($query)) {
         $data[] = array(
             'id' => $row['id'],
@@ -28,5 +23,30 @@ $postjson = json_decode(file_get_contents('php://input'), true);
     //else $result = json_encode(array('success'=>false));
     //echo $result;
     echo json_encode($data);
+
+}else if($postjson['action'] == 'delete') {
+
+    $query = mysqli_query($mysqli, "DELETE FROM costumers WHERE `costumers`.`id` = '$postjson[id]';");
+
+    $idcust = mysqli_insert_id($mysqli);
+
+    if($query) $result = json_encode(array('success'=>true, 'result'=>'success'));
+    else $result = json_encode(array('success'=>false,  'result'=>'error'));
+
+    echo $result;
+}else if($postjson['action']=='add'){
+
+  
+    $query = mysqli_query($mysqli, "INSERT INTO costumers SET
+        name_customer = '$postjson[name_customer]',
+        desc_customer = '$postjson[desc_customer]' 
+    ");
+
+    $idcust = mysqli_insert_id($mysqli);
+
+    if($query) $result = json_encode(array('success'=>true, 'customerid'=>$idcust));
+    else $result = json_encode(array('success'=>false));
+
+    echo $result;
 
 }

@@ -13,71 +13,48 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddtstPage implements OnInit {
 
   customerForm: FormGroup;
+  //name_customer: string = "";
+  //desc_customer: string = "";
+ // id: number;
   products: Customer;
   productID: number;
   editable: boolean = false;
 
-  constructor(private navpaams: NavParams, private modalcontroller: ModalController, public formbuilder: FormBuilder, private tstservice: TstService, private route: ActivatedRoute) { }
+  constructor(private navpaams: NavParams, private modalcontroller: ModalController, public formbuilder: FormBuilder, private tstservice: TstService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.customerForm = this.formbuilder.group({
-      //name_customer: new FormControl(),
-      //desc_customer: new FormControl()
-      name_customer: [
-        '',
-        [
-          Validators.required, // validação de campo requirido
-          Validators.minLength(4), // validação de minimo de caracteres
-          Validators.maxLength(100), // validação de maximo de caracteres
-        ]
-      ],
-      desc_customer: [
-        '',
-        [
-          Validators.required, // validação de campo requirido
-          Validators.minLength(4), // validação de minimo de caracteres
-          Validators.maxLength(100), // validação de maximo de caracteres
-        ]
-      ]
+      name_customer: new FormControl('', Validators.compose([
+        
+        Validators.maxLength(25),
+        Validators.minLength(5),
+        //Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+        Validators.required
+      ])),
+      desc_customer: new FormControl('', Validators.compose([
+        
+        Validators.maxLength(25),
+        Validators.minLength(5),
+        //Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+        Validators.required
+      ]))
     });
-
-    this.route.paramMap.subscribe(params => {
-      this.productID =+ params.get('id');
-      if(this.productID) {
-        this.getProduto(this.productID);
-        this.editable = true;
-      }
-    })
-
-
   }
 
   closeModal(){
     this.modalcontroller.dismiss();
   }
-  addProduct(){
+  addProduct(values : any){
+
+    
     let body = {
       action: 'add',
-      name_customer : this.products.name_customer,
-      desc_customer : this.products.desc_customer
+      name_customer: values.name_customer,
+      desc_customer: values.desc_customer
     };
-    this.tstservice.postData(body, 'api.php').subscribe(data => {
-      //this.router.navigate(['/customers']);
-      //this.name_customer = ''
-      //this.desc_customer = ''
-      console.log('Ok');
+    
+    this.tstservice.postData(body, 'api.php').subscribe(() => {
+      this.modalcontroller.dismiss();
     });
-
-    //console.log(values);
-    //this.router.navigate(["/user"]);
-  }
-  editProduct(values: any){
-    console.log(values);
-    //this.router.navigate(["/user"]);
-  }
-
-  getProduto(id: number) {
-    console.log(id);
-  }
-
+}
 }

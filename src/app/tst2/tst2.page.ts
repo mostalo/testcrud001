@@ -38,7 +38,7 @@ loadCostumer() {
       start: this.start
     };
     this.postProvider.postData(body, 'api.php').subscribe(response => {
-      console.log(response);
+      //console.log(response);
       this.products = response;
     })
   }
@@ -56,8 +56,19 @@ loadCostumer() {
   async testadd(){
     const modal = await this.modalcontroller.create({
      component: AddtstPage
+     
     });
-    modal.present();
+
+      //modal.present();
+      modal.onDidDismiss().then(() => {
+        //console.log(data);
+        this.loadCostumer();
+
+      });
+
+      return await modal.present();
   }
+ 
+ 
 
 }
