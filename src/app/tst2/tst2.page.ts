@@ -39,7 +39,7 @@ loadCostumer() {
       start: this.start
     };
     this.postProvider.postData(body, 'api.php').subscribe(response => {
-      //console.log(response);
+      console.log(response);
       this.products = response;
     })
   }
