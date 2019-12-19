@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, map } from 'rxjs/operators';
 import { Customer } from '../model/customer';
 //import { map } from 'rxjs/operator/map';
 //import 'rxjs/add/operator/map';
-import { map } from 'rxjs/operators';
+//import { map } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -41,6 +41,7 @@ export class TstService {
   };
 
 postData(body: any, file: any): Observable<Customer> {
+  
   return this.http.post<Customer>(this.server + file, JSON.stringify(body), 
   httpOptions)
   .pipe(retry(2)

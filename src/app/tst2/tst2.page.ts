@@ -39,9 +39,10 @@ loadCostumer() {
       start: this.start
     };
     this.postProvider.postData(body, 'api.php').subscribe(response => {
-      console.log(response);
+      //console.log(response);
       this.products = response;
     })
+
   }
 
   deletecustomer(id) {
@@ -70,12 +71,20 @@ loadCostumer() {
       return await modal.present();
   }
 
-  async editarProduto(id: number) {
+  async editarProduto(id: number, name_customer: string, desc_customer: string) {
+  
     const modal = await this.modalcontroller.create({
+      
       component: EditstPage,
-      componentProps: { value: id }
+      componentProps: { 
+        idval: id,
+        namval: name_customer,
+        desval: desc_customer
+
+       }
     });
     return await modal.present();
+
   }
   
 }
