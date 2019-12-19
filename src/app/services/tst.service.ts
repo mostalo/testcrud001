@@ -3,6 +3,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { Customer } from '../model/customer';
+//import { map } from 'rxjs/operator/map';
+//import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -43,6 +46,17 @@ postData(body: any, file: any): Observable<Customer> {
   .pipe(retry(2)
   ,catchError(this.handleError))
 }
+/*
+postData(body, file){
+  //let type = "application/json; charset=UTF-8";
+  //let headers = new Headers({ 'Content-Type': type });
+  //let options = new RequestOptions({ headers: headers });
+
+  return this.http.post(this.server + file, JSON.stringify(body))
+  //.map(res => res.json());
+  .pipe(map((response: any) => response.json()));
+}
+*/
 
 
 }
