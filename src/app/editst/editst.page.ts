@@ -8,6 +8,8 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
 //import { map } from 'rxjs/operator/map';
 //import 'rxjs/add/operator/map';
 import { map } from 'rxjs/operators';
+import { promise } from 'protractor';
+import { resolve } from 'url';
 
 @Component({
   selector: 'app-editst',
@@ -15,10 +17,9 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./editst.page.scss'],
 })
 export class EditstPage implements OnInit {
+  
   products: Customer;
   public idval = this.navParams.get('idval');
-  public namval = this.navParams.get('namval');
-  public desval = this.navParams.get('desval');
   customerForm: FormGroup;
 
   constructor(private navParams: NavParams, private tstservice: TstService, private modalcontroller: ModalController, private formbuilder: FormBuilder) {
@@ -26,31 +27,16 @@ export class EditstPage implements OnInit {
   }
 
   ngOnInit() {
-    //console.log(this.idval + " == "+ this.namval+ " == "+ this.desval);
-    //this.loadCostumer();
-    let body = {
-      action: 'getdataid',
-      id: this.idval
-    };
-    this.tstservice.postData(body, 'api.php').pipe(map( resp => {
-      //Response.json();
-       //return response;
-       //return resp;
-       this.products = resp;
-       console.log(this.products.desc_customer);
-       
-     }));
-
-    //console.log("problem undef : " + gfh);
+    this.loadCostumer();
   this.customerForm = this.formbuilder.group({
-    name_customer: new FormControl(this.namval, Validators.compose([
+    name_customer: new FormControl('', Validators.compose([
       
       Validators.maxLength(25),
       Validators.minLength(5),
       //Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
       Validators.required
     ])),
-    desc_customer: new FormControl(this.desval, Validators.compose([
+    desc_customer: new FormControl('', Validators.compose([
       
       Validators.maxLength(25),
       Validators.minLength(5),
@@ -63,48 +49,26 @@ export class EditstPage implements OnInit {
   closeModal(){
     this.modalcontroller.dismiss();
   }
-/*
+  
   loadCostumer() {
     let body = {
       action: 'getdataid',
       id: this.idval
     };
     
-   let yfy = this.tstservice.postData(body, 'api.php').subscribe(response => {
-    
-     // return response[0];
-      console.log(response[0].name_customer);
-      //return response[0].name_customer;
+    return this.tstservice.postData(body, 'api.php').subscribe((data: any) => {
       
+     this.customerForm.setValue({
+      name_customer: data[0].name_customer,
+      desc_customer: data[0].desc_customer
+      });
     });
-    console.log("====" +yfy);
-    //console.log("this result : " + gdf);
-    //this.products = Response[0];
-    //console.log("name  = " + this.products.name_customer + " -- desc = "+ this.products.desc_customer);
   }
-  */
- /* loadCostumer() {
-    let body = {
-      action: 'getdataid',
-      id: this.idval
-    };
-    
-    this.tstservice.postData(body, 'api.php').subscribe(response => {
-    
-      return response;
-      console.log("name  = " + this.products.name_customer + " -- desc = "+ this.products.desc_customer);
-      
-    });
-    console.log(Response);
-    //this.products = Response[0];
-    //console.log("name  = " + this.products.name_customer + " -- desc = "+ this.products.desc_customer);
-  }
-*/
   updateProduct(values : any){
-
     
     let body = {
       action: 'update',
+      id: this.idval,
       name_customer: values.name_customer,
       desc_customer: values.desc_customer
     };

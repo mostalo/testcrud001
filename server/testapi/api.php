@@ -19,9 +19,6 @@ $postjson = json_decode(file_get_contents('php://input'), true);
             'desc_customer' => $row['desc_customer']
         );
     }
-    //if($query)$result = json_encode(array('success'=>true, 'result'=>$data));
-    //else $result = json_encode(array('success'=>false));
-    //echo $result;
     echo json_encode($data);
 
 }else if($postjson['action'] == 'delete') {
@@ -59,25 +56,16 @@ $postjson = json_decode(file_get_contents('php://input'), true);
             'desc_customer' => $row['desc_customer']
         );
     }
-    //if($query)$result = json_encode(array('success'=>true, 'result'=>$data));
-    //else $result = json_encode(array('success'=>false));
-    //echo $result;
     echo json_encode($data);
 }else if($postjson['action'] == 'update') {
-    echo $postjson['name_customer'] . " => ". $postjson['desc_customer'];
+    
+    $query = mysqli_query($mysqli, "UPDATE costumers SET 
+  		name_customer='$postjson[name_customer]',
+  		desc_customer='$postjson[desc_customer]' WHERE `costumers`.`id` ='$postjson[id]';");
 
-    /*$data = array();
-    $query = mysqli_query($mysqli, "select * from costumers WHERE `costumers`.`id` = '$postjson[id]';");
-    while($row = mysqli_fetch_array($query)) {
-        $data[] = array(
-            'id' => $row['id'],
-            'name_customer' => $row['name_customer'],
-            'desc_customer' => $row['desc_customer']
-        );
-    }
-    //if($query)$result = json_encode(array('success'=>true, 'result'=>$data));
-    //else $result = json_encode(array('success'=>false));
-    //echo $result;
-    echo json_encode($data);
-    */
+  	if($query) $result = json_encode(array('success'=>true, 'result'=>'success'));
+  	else $result = json_encode(array('success'=>false, 'result'=>'error'));
+
+  	echo $result;
+
 }

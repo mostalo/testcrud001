@@ -60,31 +60,33 @@ loadCostumer() {
      component: AddtstPage
      
     });
-
-      //modal.present();
       modal.onDidDismiss().then(() => {
-        //console.log(data);
+        
         this.loadCostumer();
 
       });
 
       return await modal.present();
   }
-
-  async editarProduto(id: number, name_customer: string, desc_customer: string) {
+ async editarProduto(id: number) {
   
-    const modal = await this.modalcontroller.create({
-      
-      component: EditstPage,
-      componentProps: { 
-        idval: id,
-        namval: name_customer,
-        desval: desc_customer
+  const modal = await this.modalcontroller.create({
+    
+    component: EditstPage,
+    componentProps: { 
+      idval : id
 
-       }
-    });
-    return await modal.present();
+     }
+  });
+  
+  modal.onDidDismiss().then(() => {
+        
+    this.loadCostumer();
 
-  }
+  });
+  return await modal.present();
+
+}
+
   
 }
